@@ -14,6 +14,21 @@ function App() {
     }
   });
   const [showInput, setShowInput] = useState(false);
+  const [theme, setTheme] = useState('biscuit'); // 'biscuit' | 'blue' | 'violet' | 'coffee'
+  const [language, setLanguage] = useState('en'); // 'en' | 'te'
+
+  const cycleTheme = () => {
+    setTheme((prev) => {
+      if (prev === 'biscuit') return 'blue';
+      if (prev === 'blue') return 'violet';
+      if (prev === 'violet') return 'coffee';
+      return 'biscuit';
+    });
+  };
+
+  const toggleLanguage = () => {
+    setLanguage((prev) => (prev === 'en' ? 'te' : 'en'));
+  };
 
   // Persist tasks to localStorage whenever they change
   useEffect(() => {
@@ -48,29 +63,54 @@ function App() {
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter(task => task.completed).length;
 
+  const isTelugu = language === 'te';
+  const titleText = isTelugu ? 'నా పనులు' : 'My Tasks';
+  const subtitleText = isTelugu ? 'వ్యవస్థబద్ధంగా ఉండండి, ఫలవంతంగా ఉండండి' : 'Stay organized, stay productive';
+  const totalLabel = isTelugu ? 'మొత్తం' : 'Total';
+  const completedLabel = isTelugu ? 'పూర్తయ్యినవి' : 'Completed';
+  const pendingLabel = isTelugu ? 'మిగిలినవి' : 'Pending';
+
   return (
-    <div className="app">
+    <div className={`app theme-${theme}`}>
       <div className="container">
         <header className="header">
-          <h1 className="title">My Tasks</h1>
-          <p className="subtitle">Stay organized, stay productive</p>
+          <div className="header-controls">
+            <button
+              className="theme-toggle"
+              type="button"
+              onClick={cycleTheme}
+              aria-label="Change theme"
+            >
+              🎨
+            </button>
+            <button
+              className="language-toggle"
+              type="button"
+              onClick={toggleLanguage}
+              aria-label="Toggle language"
+            >
+              {isTelugu ? 'A' : 'అ'}
+            </button>
+          </div>
+          <h1 className="title">{titleText}</h1>
+          <p className="subtitle">{subtitleText}</p>
         </header>
 
         <div className="stats">
           <div className="stat-card">
             <div className="stat-icon">📋</div>
             <span className="stat-number">{totalTasks}</span>
-            <span className="stat-label">Total</span>
+            <span className="stat-label">{totalLabel}</span>
           </div>
           <div className="stat-card">
             <div className="stat-icon">✅</div>
             <span className="stat-number">{completedTasks}</span>
-            <span className="stat-label">Completed</span>
+            <span className="stat-label">{completedLabel}</span>
           </div>
           <div className="stat-card">
             <div className="stat-icon">⏳</div>
             <span className="stat-number">{totalTasks - completedTasks}</span>
-            <span className="stat-label">Pending</span>
+            <span className="stat-label">{pendingLabel}</span>
           </div>
         </div>
 
@@ -85,6 +125,7 @@ function App() {
 
         {showInput && (
           <TaskInput
+            language={language}
             onAddTask={(name, date, group) => {
               addTask(name, date, group);
             }}
@@ -94,6 +135,7 @@ function App() {
 
         <TaskList
           tasks={tasks}
+          language={language}
           onToggleComplete={toggleComplete}
           onDeleteTask={deleteTask}
         />

@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function TaskItem({ task, index, onToggleComplete, onDeleteTask }) {
+function TaskItem({ task, index, onToggleComplete, onDeleteTask, language = 'en' }) {
+  const [isRemoving, setIsRemoving] = useState(false);
+  const isTelugu = language === 'te';
+
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
   };
 
+  const handleDelete = () => {
+    setIsRemoving(true);
+    setTimeout(() => {
+      onDeleteTask(task.id);
+    }, 220);
+  };
+
+  const groupLabel = () => {
+    if (!isTelugu) return task.group;
+    const map = {
+      Work: 'పని',
+      Personal: 'వ్యక్తిగతం',
+      Health: 'ఆరోగ్యం',
+      Shopping: 'షాపింగ్',
+      General: 'సాధారణం',
+      Other: 'ఇతరాలు'
+    };
+    return map[task.group] || task.group;
+  };
+
   return (
     <div 
-      className={`task-item ${task.completed ? 'completed' : ''}`}
+      className={`task-item ${task.completed ? 'completed' : ''} ${isRemoving ? 'removing' : ''}`}
       style={{ animationDelay: `${index * 0.05}s` }}
     >
       <div className="task-content">
@@ -27,7 +50,7 @@ function TaskItem({ task, index, onToggleComplete, onDeleteTask }) {
           <div className="task-meta">
             {task.date && <span className="task-date-badge">📅 {formatDate(task.date)}</span>}
             {task.group && (
-              <span className={`task-group-badge ${String(task.group).toLowerCase()}`}>{task.group}</span>
+              <span className={`task-group-badge ${String(task.group).toLowerCase()}`}>{groupLabel()}</span>
             )}
           </div>
         </div>
@@ -43,7 +66,7 @@ function TaskItem({ task, index, onToggleComplete, onDeleteTask }) {
         </button>
         <button
           className="delete-button"
-          onClick={() => onDeleteTask(task.id)}
+          onClick={handleDelete}
           aria-label="Delete task"
         >
           ×

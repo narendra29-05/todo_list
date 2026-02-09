@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-function TaskInput({ onAddTask, onClose }) {
+function TaskInput({ onAddTask, onClose, language = 'en' }) {
   const [inputValue, setInputValue] = useState('');
   const [taskDate, setTaskDate] = useState(new Date().toISOString().split('T')[0]);
   const [taskGroup, setTaskGroup] = useState('General');
+
+  const isTelugu = language === 'te';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,7 +36,7 @@ function TaskInput({ onAddTask, onClose }) {
           <input
             type="text"
             className="task-input"
-            placeholder="What needs to be done?"
+            placeholder={isTelugu ? 'ఏ పని చేయాలి?' : 'What needs to be done?'}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
           />
@@ -52,18 +54,18 @@ function TaskInput({ onAddTask, onClose }) {
             value={taskGroup}
             onChange={(e) => setTaskGroup(e.target.value)}
           >
-            <option value="General">General</option>
-            <option value="Work">Work</option>
-            <option value="Personal">Personal</option>
+            <option value="General">{isTelugu ? 'సాధారణం' : 'General'}</option>
+            <option value="Work">{isTelugu ? 'పని' : 'Work'}</option>
+            <option value="Personal">{isTelugu ? 'వ్యక్తిగతం' : 'Personal'}</option>
           </select>
         </div>
 
         <div className="panel-actions">
           <button type="button" className="cancel-button" onClick={() => typeof onClose === 'function' && onClose()}>
-            Cancel
+            {isTelugu ? 'రద్దు' : 'Cancel'}
           </button>
           <button type="submit" className="add-button save-button">
-            Save Task
+            {isTelugu ? 'పని సేవ్ చేయండి' : 'Save Task'}
           </button>
         </div>
       </form>

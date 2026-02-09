@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import TaskItem from './TaskItem';
 
-function TaskList({ tasks, onToggleComplete, onDeleteTask }) {
+function TaskList({ tasks, onToggleComplete, onDeleteTask, language = 'en' }) {
   const [groupBy, setGroupBy] = useState('date'); // 'date' or 'group'
+  const isTelugu = language === 'te';
 
   if (tasks.length === 0) {
     return (
       <div className="empty-state">
         <div className="empty-icon">📝</div>
-        <p className="empty-text">No tasks yet. Add one to get started!</p>
+        <p className="empty-text">
+          {isTelugu
+            ? 'ఇంకా ఏ పనులు లేవు. మొదలుపెట్టడానికి ఒక పని చేర్చండి!'
+            : 'No tasks yet. Add one to get started!'}
+        </p>
       </div>
     );
   }
@@ -54,6 +59,19 @@ function TaskList({ tasks, onToggleComplete, onDeleteTask }) {
   const groups = groupBy === 'date' ? groupTasksByDate() : groupTasksByGroup();
   const sorted = sortedGroups(groups);
 
+  const groupKeyLabel = (key) => {
+    if (!isTelugu) return key;
+    const map = {
+      Work: 'పని',
+      Personal: 'వ్యక్తిగతం',
+      Health: 'ఆరోగ్యం',
+      Shopping: 'షాపింగ్',
+      General: 'సాధారణం',
+      Other: 'ఇతరాలు'
+    };
+    return map[key] || key;
+  };
+
   return (
     <div className="task-list-wrapper">
       <div className="group-toggle">
@@ -61,13 +79,13 @@ function TaskList({ tasks, onToggleComplete, onDeleteTask }) {
           className={`toggle-btn ${groupBy === 'date' ? 'active' : ''}`}
           onClick={() => setGroupBy('date')}
         >
-          📅 By Date
+          📅 {isTelugu ? 'తేదీ ప్రకారం' : 'By Date'}
         </button>
         <button 
           className={`toggle-btn ${groupBy === 'group' ? 'active' : ''}`}
           onClick={() => setGroupBy('group')}
         >
-          🏷️ By Category
+          🏷️ {isTelugu ? 'వర్గం ప్రకారం' : 'By Category'}
         </button>
       </div>
 
@@ -75,7 +93,7 @@ function TaskList({ tasks, onToggleComplete, onDeleteTask }) {
         {sorted.map((groupKey, idx) => (
           <div key={groupKey} className="task-group-section">
             <h3 className="group-title">
-              {groupBy === 'date' ? formatDate(groupKey) : groupKey}
+              {groupBy === 'date' ? formatDate(groupKey) : groupKeyLabel(groupKey)}
               <span className="group-count">{groups[groupKey].length}</span>
             </h3>
             <div className="group-items">
@@ -84,6 +102,7 @@ function TaskList({ tasks, onToggleComplete, onDeleteTask }) {
                   key={task.id}
                   task={task}
                   index={index}
+                  language={language}
                   onToggleComplete={onToggleComplete}
                   onDeleteTask={onDeleteTask}
                 />
