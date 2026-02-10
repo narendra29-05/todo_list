@@ -107,3 +107,93 @@ http://YOUR_COMPUTER_IP:5173
 npm run build
 npm run preview
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img width="482" height="769" alt="Screenshot 2026-02-10 at 11 03 19 AM" src="https://github.com/user-attachments/assets/606cd7bf-0787-4aac-84c5-322637203fdd" />
+
+
+<img width="482" height="826" alt="Screenshot 2026-02-10 at 10 36 59 AM" src="https://github.com/user-attachments/assets/828e446f-9771-47a9-9862-890545d02e54" />
+
+
+
+<img width="479" height="770" alt="Screenshot 2026-02-10 at 11 05 02 AM" src="https://github.com/user-attachments/assets/82522446-97ff-431f-8953-e0a4835cb0ed" />
+
+
+
+
+<img width="476" height="777" alt="Screenshot 2026-02-10 at 11 24 50 AM" src="https://github.com/user-attachments/assets/cbf2ee48-8f81-4987-ba15-f98553c8c3be" />
+
+
+
+
+<img width="484" height="771" alt="Screenshot 2026-02-10 at 11 06 58 AM" src="https://github.com/user-attachments/assets/979559ca-036e-4819-9fe5-9968bc350f94" />
+
+
+<img width="483" height="777" alt="Screenshot 2026-02-10 at 11 25 28 AM" src="https://github.com/user-attachments/assets/54a4e8a9-0c5c-4787-bbcd-2e28e68671f8" />
+
+
+<img width="325" height="519" alt="Screenshot 2026-02-10 at 11 29 01 AM" src="https://github.com/user-attachments/assets/41e0fba4-702a-4f72-90e6-0a6b3922ba06" />
+
+
+
+
+<img width="479" height="827" alt="Screenshot 2026-02-10 at 10 50 10 AM" src="https://github.com/user-attachments/assets/ada33325-2474-4018-841c-104b7b0139f7" />
+
+
+
+
+
+
+<img width="486" height="829" alt="Screenshot 2026-02-10 at 10 46 29 AM" src="https://github.com/user-attachments/assets/4c788064-cdd1-4a9b-912d-0adaafc07dbd" />
+
+
+
+
+
+
+
+
+
+
+
+<img width="479" height="827" alt="Screenshot 2026-02-10 at 10 50 10 AM" src="https://github.com/user-attachments/assets/c5518e34-a7e0-4f9a-8708-066d383b0cd6" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
